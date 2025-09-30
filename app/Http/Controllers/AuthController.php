@@ -60,9 +60,17 @@ class AuthController extends Controller
                 'data' => ['errors' => $e->errors()]
             ], 422);
         } catch (\Exception $e) {
+            // return response()->json([
+            //     'success' => false,
+            //     'data' => ['message' => 'Registration failed']
+            // ], 500);
             return response()->json([
                 'success' => false,
-                'data' => ['message' => 'Registration failed']
+                'data' => [
+                    'message' => 'Registration failed',
+                    'error' => $e->getMessage(),
+                    'trace' => $e->getTrace() // Optional, very verbose
+                ]
             ], 500);
         }
     }
